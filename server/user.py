@@ -28,6 +28,7 @@ def register():
     return jsonify({'message': 'User created successfully'}), 201
 
 
+
 @user_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -46,3 +47,60 @@ def login():
     # 예를 들어, 세션 생성, JWT 토큰 발급 등
 
     return jsonify({'message': 'Login successful'}), 200
+
+
+
+@user_bp.route('/<int:user_id>/courses', methods=['GET'])
+def get_user_courses(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    courses = user.courses
+
+    course_list = []
+    for course in courses:
+        course_data = {
+            'id': course.id,
+            'name': course.name
+        }
+        course_list.append(course_data)
+
+    return jsonify({'courses': course_list}), 200
+
+
+
+@user_bp.route('/<int:user_id>/profile', methods=['GET'])
+def get_user_profile(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    profile = {
+        'username': user.username,
+        # Add more profile data as needed
+    }
+
+    return jsonify({'profile': profile}), 200
+
+
+
+@user_bp.route('/<int:user_id>/profile', methods=['PUT'])
+def update_user_profile(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    data = request.get_json()
+
+    # Update profile data
+    if 'username' in data:
+        user.username = data['username']
+    # Add more profile data to update as needed
+
+    db.session.commit()
+
+    return jsonify({'message': 'Profile updated successfully'}), 200
