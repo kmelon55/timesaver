@@ -9,6 +9,8 @@ def create_app(debug=True):
     app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 
     from user import user_bp
+    from course import course_bp
+
     from models import db
 
     db.init_app(app)
@@ -17,6 +19,7 @@ def create_app(debug=True):
         db.create_all()
 
         app.register_blueprint(user_bp, url_prefix='/user')
+        app.register_blueprint(course_bp, url_prefix='/course')
 
         @app.route("/test", methods=['GET'])
         def test():

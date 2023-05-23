@@ -7,6 +7,30 @@ from models import db, User
 
 user_bp = Blueprint('user', __name__)
 
+
+@user_bp.route('/', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+
+    user_list = []
+    for user in users:
+        user_data = {
+            'id': user.id,
+            'username': user.username,
+            'courses': []
+        }
+        for course in user.courses:
+            course_data = {
+                'id': course.id,
+                'name': course.name
+            }
+            user_data['courses'].append(course_data)
+
+        user_list.append(user_data)
+
+    return jsonify({'users': user_list}), 200
+
+
 @user_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
