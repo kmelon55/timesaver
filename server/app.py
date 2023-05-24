@@ -1,11 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import DB_URL
-
+from flask_migrate import Migrate
 
 def create_app(debug=True):
     app = Flask(__name__)
-    app.debug = debug
     app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 
     from user import user_bp
@@ -16,7 +15,7 @@ def create_app(debug=True):
     db.init_app(app)
     
     with app.app_context():
-        db.create_all()
+        migrate = Migrate(app, db)
 
         app.register_blueprint(user_bp, url_prefix='/user')
         app.register_blueprint(course_bp, url_prefix='/course')
