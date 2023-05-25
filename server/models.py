@@ -14,12 +14,12 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     courses = db.relationship('Course', secondary=course_user_association, backref='users', lazy=True)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password_hash):
         self.username = username
-        self.password = password
+        self.password_hash = password_hash
 
 
 class Course(db.Model):

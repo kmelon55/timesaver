@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from config import DB_URL
 from flask_migrate import Migrate
@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 def create_app(debug=True):
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+    app.secret_key = 'test_secret_key'
 
     from user import user_bp
     from course import course_bp

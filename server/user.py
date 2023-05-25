@@ -1,8 +1,9 @@
-from flask import Blueprint
+from flask import Blueprint, session
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User
+from flask import current_app
 
 
 user_bp = Blueprint('user', __name__)
@@ -50,12 +51,15 @@ def register():
     if not username or not password:
         return jsonify({'message': 'Username and password are required'}), 400
 
-    user = User.query.filter_by(username=username).first()
+    existing_user = User.query.filter_by(username=username).first()
 
-    if user:
+    if existing_user:
         return jsonify({'message': 'Username already exists'}), 409
 
-    new_user = User(username=username, password=password)
+    # 비밀번호 해시화
+    password_hash = generate_password_hash(password)
+
+    new_user = User(username=username, password_hash=password_hash)
     db.session.add(new_user)
     db.session.commit()
 
@@ -68,20 +72,31 @@ def login():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+    remember = data.get('remember', False)
 
     if not username or not password:
         return jsonify({'message': 'Username and password are required'}), 400
 
     user = User.query.filter_by(username=username).first()
 
-    if not user or not user.check_password(password):
+    if not user or not check_password_hash(user.password_hash, password):
         return jsonify({'message': 'Invalid username or password'}), 401
 
-    # 로그인 성공 시 로직을 추가하세요
-    # 예를 들어, 세션 생성, JWT 토큰 발급 등
+    try:
+        if remember:
+            session.permanent = True
+        session['username'] = username
+        return jsonify({'message': 'Login successful'}), 200
 
-    return jsonify({'message': 'Login successful'}), 200
+    except Exception as e:
+        current_app.logger.error('An error occurred during login: %s', str(e))
+        return jsonify({'message': 'An error occurred during login'}), 500
 
+
+@user_bp.route('/logout', methods=['post'])
+def logout():
+    session.pop('username', None)
+    return jsonify({"message": "로그아웃 성공"})
 
 
 @user_bp.route('/<int:user_id>/courses', methods=['GET'])
