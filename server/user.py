@@ -22,13 +22,23 @@ def get_all_users():
         for course in user.courses:
             course_data = {
                 'id': course.id,
-                'name': course.name
+                'name': course.name,
+                'location': course.location,
+                'subject': course.subject,
+                'subject_code': course.subject_code,
+                'target_grade': course.target_grade,
+                'major_seats': course.major_seats,
+                'other_seats': course.other_seats,
+                'minor_seats': course.minor_seats,
+                'professor': course.professor,
+                'schedule': course.schedule
             }
             user_data['courses'].append(course_data)
 
         user_list.append(user_data)
 
     return jsonify({'users': user_list}), 200
+
 
 
 @user_bp.route('/register', methods=['POST'])
@@ -87,12 +97,35 @@ def get_user_courses(user_id):
     for course in courses:
         course_data = {
             'id': course.id,
-            'name': course.name
+            'name': course.name,
+            'location': course.location,
+            'subject': course.subject,
+            'subject_code': course.subject_code,
+            'target_grade': course.target_grade,
+            'major_seats': course.major_seats,
+            'other_seats': course.other_seats,
+            'minor_seats': course.minor_seats,
+            'professor': course.professor,
+            'schedule': course.schedule
         }
         course_list.append(course_data)
 
     return jsonify({'courses': course_list}), 200
 
+@user_bp.route('/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({'message': 'User deleted successfully'}), 200
+
+
+# Create Flask blueprint for courses
+course_bp = Blueprint('course_bp', __name__)
 
 
 @user_bp.route('/<int:user_id>/profile', methods=['GET'])
