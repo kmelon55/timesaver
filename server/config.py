@@ -11,4 +11,4 @@ DB_URL = f"mysql+mysqlconnector://{db['user']}:{db['password']}@{db['host']}:{db
 SECRET_KEY = "session_test_secret_key"
 
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = ""
