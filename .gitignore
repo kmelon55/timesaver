@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-server/config.py
+config.py
 
 .Python
 [Bb]in
