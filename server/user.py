@@ -56,7 +56,6 @@ def register():
     if existing_user:
         return jsonify({'message': 'Username already exists'}), 409
 
-    # 비밀번호 해시화
     password_hash = generate_password_hash(password)
 
     new_user = User(username=username, password_hash=password_hash)
@@ -96,7 +95,7 @@ def login():
 @user_bp.route('/logout', methods=['post'])
 def logout():
     session.pop('username', None)
-    return jsonify({"message": "로그아웃 성공"})
+    return jsonify({'message': 'Logout seccessful'})
 
 
 @user_bp.route('/<int:user_id>/courses', methods=['GET'])
