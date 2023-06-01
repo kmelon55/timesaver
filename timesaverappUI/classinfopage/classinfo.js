@@ -141,28 +141,6 @@ const Classinfopage = (props) => {
               alt="UserpagebuttonI397"
               className={styles['userpagebutton']}
             />
-          </button>
-        </div>
-        <div className={styles['i-o-status-bar']}>
-          <div className={styles['action']}>
-            <span className={styles['text35']}>
-              <span>9:41</span>
-            </span>
-          </div>
-          <div className={styles['container1']}>
-            <span className={styles['text37']}>
-              <span>􀛨</span>
-            </span>
-            <img
-              src="/signali241-fqfo.svg"
-              alt="SignalI241"
-              className={styles['signal']}
-            />
-            <span className={styles['text39']}>
-              <span>􀙇</span>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   )

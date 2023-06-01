@@ -43,8 +43,8 @@ const SignUppage = (props) => {
                       <span>홍길</span>
                     </span>
                     <img
-                      src="/cursori245-7qpwe.svg"
                       alt="CursorI245"
+                      src="/cursori245-dvf.svg"
                       className={styles['cursor']}
                     />
                   </div>
@@ -87,8 +87,8 @@ const SignUppage = (props) => {
                 </div>
                 <div className={styles['icon']}>
                   <img
-                    src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/83500b0e-6528-4d22-adda-d9e7de434eab/f9ee13d2-69c8-45bf-8a77-352ef174d93a?org_if_sml=1115"
                     alt="FillI245"
+                    src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/dd80873b-c2d7-4a34-89a9-e77252cf01b5/6850b661-6d17-42f3-968c-ca9616ec26b8?org_if_sml=1115"
                     className={styles['fill']}
                   />
                 </div>
@@ -107,8 +107,8 @@ const SignUppage = (props) => {
                 </div>
                 <div className={styles['icon1']}>
                   <img
-                    src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/83500b0e-6528-4d22-adda-d9e7de434eab/3bd73032-06d5-40fe-9cca-fc182104b10c?org_if_sml=1115"
                     alt="FillI245"
+                    src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/dd80873b-c2d7-4a34-89a9-e77252cf01b5/3db11a4c-0da5-453a-b7f2-efaed40367ad?org_if_sml=1115"
                     className={styles['fill1']}
                   />
                 </div>
@@ -161,38 +161,19 @@ const SignUppage = (props) => {
           </div>
         </div>
         <img
-          src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/83500b0e-6528-4d22-adda-d9e7de434eab/59fd9e81-9191-46f6-b935-a9c392160d1d?org_if_sml=13964"
-          alt="logopage2475"
-          className={styles['logopage']}
+          alt="logoimage2475"
+          src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/dd80873b-c2d7-4a34-89a9-e77252cf01b5/fe3ed9da-a7d7-4e30-b8b7-58fd4db02a0a?org_if_sml=13964"
+          className={styles['logoimage']}
         />
         <img
-          src="/backbutton2414-6a23.svg"
           alt="backButton2414"
+          src="/backbutton2414-mjte.svg"
           className={styles['back-button']}
         />
-        <div className={styles['i-o-status-bar']}>
-          <div className={styles['action']}>
-            <span className={styles['text35']}>
-              <span>9:41</span>
-            </span>
-          </div>
-          <div className={styles['container1']}>
-            <span className={styles['text37']}>
-              <span>􀛨</span>
-            </span>
-            <img
-              src="/signali245-8a3.svg"
-              alt="SignalI245"
-              className={styles['signal']}
-            />
-            <span className={styles['text39']}>
-              <span>􀙇</span>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   )
 }
 
 export default SignUppage
+

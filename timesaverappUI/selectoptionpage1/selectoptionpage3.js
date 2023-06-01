@@ -130,28 +130,7 @@ const Selectoptionpage3 = (props) => {
               alt="UserpagebuttonI397"
               className={styles['userpagebutton']}
             />
-          </button>
-        </div>
-        <div className={styles['i-o-status-bar']}>
-          <div className={styles['action']}>
-            <span className={styles['text26']}>
-              <span>9:41</span>
-            </span>
-          </div>
-          <div className={styles['container1']}>
-            <span className={styles['text28']}>
-              <span>􀛨</span>
-            </span>
-            <img
-              src="/signali264-9bs8.svg"
-              alt="SignalI264"
-              className={styles['signal']}
-            />
-            <span className={styles['text30']}>
-              <span>􀙇</span>
-            </span>
-          </div>
-        </div>
+         
       </div>
     </div>
   )

@@ -18,30 +18,11 @@ const Mypage = (props) => {
           </span>
           <img
             src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/83500b0e-6528-4d22-adda-d9e7de434eab/31d96da6-a645-4c26-8561-573fc7db36a1?org_if_sml=13959"
-            alt="logopage2413"
-            className={styles['logopage']}
+            alt="logoimage2413"
+            className={styles['logoimage']}
           />
         </div>
-        <div className={styles['i-o-status-bar']}>
-          <div className={styles['action']}>
-            <span className={styles['text06']}>
-              <span>9:41</span>
-            </span>
-          </div>
-          <div className={styles['container1']}>
-            <span className={styles['text08']}>
-              <span>􀛨</span>
-            </span>
-            <img
-              src="/signali241-oc2im.svg"
-              alt="SignalI241"
-              className={styles['signal']}
-            />
-            <span className={styles['text10']}>
-              <span>􀙇</span>
-            </span>
-          </div>
-        </div>
+       
         <span className={styles['text12']}>
           <span>내 정보</span>
         </span>

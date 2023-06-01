@@ -88,28 +88,6 @@ const Selectoptionpage7 = (props) => {
               alt="UserpagebuttonI398"
               className={styles['userpagebutton']}
             />
-          </button>
-        </div>
-        <div className={styles['i-o-status-bar']}>
-          <div className={styles['action']}>
-            <span className={styles['text12']}>
-              <span>9:41</span>
-            </span>
-          </div>
-          <div className={styles['container1']}>
-            <span className={styles['text14']}>
-              <span>􀛨</span>
-            </span>
-            <img
-              src="/signali281-ctc.svg"
-              alt="SignalI281"
-              className={styles['signal']}
-            />
-            <span className={styles['text16']}>
-              <span>􀙇</span>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   )
