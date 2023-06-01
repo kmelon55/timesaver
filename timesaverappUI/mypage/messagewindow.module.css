@@ -1,0 +1,126 @@
+.container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.messagewindow {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(0, 0, 0, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  background-color: rgba(215, 231, 215, 1);
+}
+.logopage {
+  top: -10px;
+  left: 120px;
+  width: 60px;
+  height: 84px;
+  position: absolute;
+}
+.text {
+  top: 76px;
+  left: 25px;
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  position: absolute;
+  font-size: 20px;
+  font-style: Regular;
+  text-align: left;
+  font-family: Noto Sans Malayalam;
+  font-weight: 400;
+  line-height: 20px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.checkbox-variants {
+  top: 104px;
+  left: 25px;
+  width: 145px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+}
+.checkbox-parentcomponents {
+  gap: 10px;
+  display: flex;
+  padding: 6px 0;
+  align-items: flex-start;
+}
+.wrapper {
+  display: flex;
+  padding: 1px 0;
+  align-self: stretch;
+  align-items: flex-start;
+}
+.checkmark {
+  width: 20px;
+  height: 20px;
+}
+.text2 {
+  color: var(--dl-color-black-black);
+  height: auto;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 22px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.checkbox-variants1 {
+  top: 138px;
+  left: 25px;
+  width: 210px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+}
+.checkbox-parentcomponents1 {
+  gap: 10px;
+  display: flex;
+  padding: 6px 0;
+  align-items: flex-start;
+}
+.wrapper1 {
+  display: flex;
+  padding: 1px 0;
+  align-self: stretch;
+  align-items: flex-start;
+}
+.checkmark1 {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 6px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+}
+.text4 {
+  color: var(--dl-color-black-black);
+  height: auto;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 22px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+
