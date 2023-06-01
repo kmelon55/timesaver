@@ -1,6 +1,7 @@
 from config import  OPENAI_API_KEY
 import openai
 import json
+import traceback
 
 openai.api_key = OPENAI_API_KEY
 
@@ -40,7 +41,6 @@ question = (
 )
 """
 
-# GPT-3 API를 호출합니다.
 response = openai.Completion.create(
     engine="text-davinci-003",
     prompt=question,
@@ -50,7 +50,6 @@ response = openai.Completion.create(
     temperature=0.7,
 )
 
-# API 응답에서 가장 적합한 답변을 추출합니다.
 
 print("Question:", question)
 print("Answer:", response)
@@ -58,7 +57,7 @@ print("Answer:", response)
 
 
 gpt_response = {
-  "choices": [
+  "adfasdf\nchoices": [
     {
       "finish_reason": "stop",
       "index": 0,
@@ -77,10 +76,16 @@ gpt_response = {
   }
 }
 
-recommended_timetable_text = gpt_response["choices"][0]["text"].strip()
 
-recommended_timetable_json = json.loads(recommended_timetable_text)
-
-print("Recommended Timetable (JSON):", recommended_timetable_json)
 
 # TODO : Implement response validation and data postprocessing
+
+
+try:
+  recommended_timetable_text = gpt_response["choices"][0]["text"].strip()
+  recommended_timetable_json = json.loads(recommended_timetable_text)
+  print("Recommended Timetable (JSON):", recommended_timetable_json)
+
+except (KeyError, IndexError, json.JSONDecodeError) as e:
+  traceback.print_exc()
+  print("An error occurred while processing the response:", str(e))
