@@ -28,7 +28,7 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     location = db.Column(db.String(100), nullable=False)  # 수업 장소
-    subject = db.Column(db.String(50), nullable=False)  # 교과 구분
+    subject = db.Column(db.String(50), nullable=True)  # 교과 구분
     subject_code = db.Column(db.String(20), nullable=False)  # 과목 코드
     target_grade = db.Column(db.String(10), nullable=False)  # 대상 학년
     major_seats = db.Column(db.Integer, nullable=False)  # 자과 여석

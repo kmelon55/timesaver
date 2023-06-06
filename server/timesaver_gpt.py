@@ -2,90 +2,129 @@ from config import  OPENAI_API_KEY
 import openai
 import json
 import traceback
+import ast
+from models import db, Course
+from flask import session, Blueprint, jsonify
+
+
+timetable_bp = Blueprint('timetable', __name__)
 
 openai.api_key = OPENAI_API_KEY
 
-user_data = {
-    "preferences": ["math", "computer science"],
-    "interests": ["artificial intelligence", "machine learning"],
-    "requirements": ["morning classes", "no classes on Friday"],
-}
+@timetable_bp.route('/recommend', methods=['GET'])
+def recommend_timetable():
+	user_data = {
+		"grade": [3],
+		"preferences": ["math", "computer science"],
+		"interests": ["artificial intelligence", "machine learning"],
+		"requirements": ["morning classes", "no classes on Friday"],
+		"schedule": ["월1", "수3"]
+	}
 
-timetable_data = [
-    {
-        "id": 1,
-        "course_name": "Introduction to AI",
-        "time": "Monday 9AM",
-        "category": "computer science",
-    },
-    {
-        "id": 2,
-        "course_name": "Linear Algebra",
-        "time": "Tuesday 10AM",
-        "category": "math",
-    },
-]
+	grade = user_data["grade"]
+	schedule = user_data["schedule"]
 
-# TODO : Exclude lectures that users are taking from timetable data
-# TODO : Implementing a preprocessing process that leaves the minimum data needed only for timetable recommendations
+	# Course filtering
+	filtered_courses = db.session.query(Course).filter(Course.target_grade.in_(grade)).all()
 
+	# schedule filtering
+	available_courses = []
+	for course in filtered_courses:
+		course_schedule = [course.schedule[i:i+2] for i in range(0, len(course.schedule), 2)]
+		if not any(time in course_schedule for time in schedule):
+			available_courses.append({
+				"id": course.id,
+				"name": course.name,
+				"schedule": course.schedule,
+				"target_grade": course.target_grade
+			})
 
-user_data_jsonl = json.dumps(user_data, ensure_ascii=False, separators=(",", ":"))
-timetable_data_jsonl = "".join(json.dumps(course, ensure_ascii=False, separators=(",", ":")) for course in timetable_data)
+	for course in available_courses:
+		print(course)
 
-
-question = (
-    f"Given the user data in JSONL format:\n{user_data_jsonl}\n"
-    f"and the timetable data in JSONL format:\n{timetable_data_jsonl}\n"
-    "please recommend a suitable timetable for the user in a JSON format."
-)
-"""
-
-response = openai.Completion.create(
-    engine="text-davinci-003",
-    prompt=question,
-    max_tokens=150,
-    n=1,
-    stop=None,
-    temperature=0.7,
-)
+	# TODO : Exclude courses that users are taking from timetable data
+	# TODO : Implementing a preprocessing process that leaves the minimum data needed only for timetable recommendations
 
 
-print("Question:", question)
-print("Answer:", response)
-"""
+	user_data_jsonl = json.dumps(user_data, ensure_ascii=False, separators=(",", ":"))
+	timetable_data_jsonl = "".join(json.dumps(course, ensure_ascii=False, separators=(",", ":")) for course in available_courses)
+	
+	question = (
+		f"Given the user data in JSONL format:\n{user_data_jsonl}\n"
+		f"and the timetable data in JSONL format:\n{timetable_data_jsonl}\n"
+    	"please recommend a suitable timetable for the user by providing a Python array of course IDs."
+	)
+
+	# gpt_response = openai.Completion.create(
+	#     engine="text-davinci-003",
+	#     prompt=question,
+	#     max_tokens=150,
+	#     n=1,
+	#     stop=None,
+	#     temperature=0.7,
+	# )
 
 
-gpt_response = {
-  "adfasdf\nchoices": [
-    {
-      "finish_reason": "stop",
-      "index": 0,
-      "logprobs": None,
-      "text": "\n\n{\n  \"Recommendation\": [\n    {\n      \"id\": 1,\n      \"course_name\": \"Introduction to AI\",\n      \"time\": \"Monday 9AM\",\n      \"category\": \"computer science\"\n    },\n    {\n      \"id\": 2,\n      \"course_name\": \"Linear Algebra\",\n      \"time\": \"Tuesday 10AM\",\n      \"category\": \"math\"\n    }\n  ]\n}"
-    }
-  ],
-  "created": 1685344792,
-  "id": "cmpl-7LRSSLMmLyaOHTLjqNts2l1ll6z9V",
-  "model": "text-davinci-003",
-  "object": "text_completion",
-  "usage": {
-    "completion_tokens": 103,
-    "prompt_tokens": 115,
-    "total_tokens": 218
-  }
-}
+	gpt_response = {
+		"choices": [
+			{
+			"finish_reason": "stop",
+			"index": 0,
+			"text": "\n\nrecommended_timetable = [7, 9, 15, 20]"
+			}
+		],
+		"created": 1686058213,
+		"id": "cmpl-7OR3Fb6YqCTFDvsqv1PPA4BpX4DCb",
+		"model": "text-davinci-003",
+		"object": "text_completion",
+		"usage": {
+			"completion_tokens": 18,
+			"prompt_tokens": 297,
+			"total_tokens": 315
+		}
+	}
+
+
+	# print("Question:", question)
+	print("Answer:", gpt_response)
 
 
 
-# TODO : Implement response validation and data postprocessing
+
+	# TODO : Implement response validation and data postprocessing
 
 
-try:
-  recommended_timetable_text = gpt_response["choices"][0]["text"].strip()
-  recommended_timetable_json = json.loads(recommended_timetable_text)
-  print("Recommended Timetable (JSON):", recommended_timetable_json)
+	try:
+		response_text = gpt_response["choices"][0]["text"]
+		array_start = response_text.find("[")
+		array_end = response_text.find("]", array_start)
+		array_str = response_text[array_start:array_end+1]
+		recommended_ids = ast.literal_eval(array_str)
+		
+		if isinstance(recommended_ids, list):
+			print(recommended_ids)
+		else:
+			raise ValueError("Response does not contain a valid array")
 
-except (KeyError, IndexError, json.JSONDecodeError) as e:
-  traceback.print_exc()
-  print("An error occurred while processing the response:", str(e))
+
+		recommended_courses = db.session.query(Course).filter(Course.id.in_(recommended_ids)).all()
+		# 추천된 시간표 처리 로직 구현
+
+		# 예시: 시간표 데이터를 JSON 형태로 변환
+		timetable_json = [
+			{
+				"id": course.id,
+				"name": course.name,
+				"schedule": course.schedule,
+				"target_grade": course.target_grade
+			}
+			for course in recommended_courses
+		]
+
+		# 성공적인 응답 반환
+		return jsonify(timetable_json), 200
+
+	except (KeyError, IndexError, json.JSONDecodeError) as e:
+		traceback.print_exc()
+		return jsonify({"error": str(e)}), 500
+

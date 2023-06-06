@@ -10,6 +10,7 @@ def create_app(debug=True):
 
     from user import user_bp
     from course import course_bp
+    from timesaver_gpt import timetable_bp
 
     from models import db
 
@@ -20,6 +21,7 @@ def create_app(debug=True):
 
         app.register_blueprint(user_bp, url_prefix='/user')
         app.register_blueprint(course_bp, url_prefix='/course')
+        app.register_blueprint(timetable_bp, url_prefix='/timetable')
 
         @app.route("/test", methods=['GET'])
         def test():
