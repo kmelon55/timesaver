@@ -47,6 +47,10 @@ def register():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+    grade = data.get('grade')
+    semester = data.get('semester')
+    major = data.get('major')
+    student_id = data.get('student_id')
 
     if not username or not password:
         return jsonify({'message': 'Username and password are required'}), 400
@@ -58,11 +62,30 @@ def register():
 
     password_hash = generate_password_hash(password)
 
-    new_user = User(username=username, password_hash=password_hash)
-    db.session.add(new_user)
-    db.session.commit()
+    preferences = []
+    interests = []
+    requirements = []
 
-    return jsonify({'message': 'User created successfully'}), 201
+    try:
+        new_user = User(
+            student_id=student_id,
+            username=username,
+            password_hash=password_hash,
+            preferences=preferences,
+            interests=interests,
+            requirements=requirements,
+            grade=grade,
+            semester=semester,
+            major=major
+        )
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify({'message': 'User created successfully'}), 201
+
+    except Exception as e:
+        current_app.logger.error('An error occurred during user registration: %s', str(e))
+        return jsonify({'message': 'An error occurred during user registration'}), 500
 
 
 
@@ -170,8 +193,20 @@ def update_user_profile(user_id):
     # Update profile data
     if 'username' in data:
         user.username = data['username']
-    # Add more profile data to update as needed
+    if 'preferences' in data:
+        user.preferences = data['preferences']
+    if 'interests' in data:
+        user.interests = data['interests']
+    if 'requirements' in data:
+        user.requirements = data['requirements']
+    if 'grade' in data:
+        user.grade = data['grade']
+    if 'semester' in data:
+        user.semester = data['semester']
+    if 'major' in data:
+        user.major = data['major']
 
     db.session.commit()
 
     return jsonify({'message': 'Profile updated successfully'}), 200
+

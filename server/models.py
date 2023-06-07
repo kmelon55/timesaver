@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.mysql import JSON
 
 db = SQLAlchemy()
 
@@ -13,13 +14,28 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, unique=True, nullable=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+    preferences = db.Column(JSON, nullable=True)
+    interests = db.Column(JSON, nullable=True)
+    requirements = db.Column(JSON, nullable=True)
+    grade = db.Column(db.Integer, nullable=False)
+    semester = db.Column(db.Integer, nullable=False)
+    major = db.Column(db.String(80), nullable=False)
     courses = db.relationship('Course', secondary=course_user_association, backref='users', lazy=True)
 
-    def __init__(self, username, password_hash):
+
+    def __init__(self, student_id, username, password_hash, preferences, interests, requirements, grade, major, semester):
+        self.student_id = student_id
         self.username = username
         self.password_hash = password_hash
+        self.preferences = preferences
+        self.interests = interests
+        self.requirements = requirements
+        self.grade = grade
+        self.major = major
+        self.semester = semester
 
 
 class Course(db.Model):
