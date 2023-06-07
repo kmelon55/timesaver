@@ -24,7 +24,7 @@ def recommend_timetable():
 	grade = user_data["grade"]
 	schedule = user_data["schedule"]
 
-	# Course filtering
+	# course filtering
 	filtered_courses = db.session.query(Course).filter(Course.target_grade.in_(grade)).all()
 
 	# schedule filtering
@@ -108,9 +108,7 @@ def recommend_timetable():
 
 
 		recommended_courses = db.session.query(Course).filter(Course.id.in_(recommended_ids)).all()
-		# 추천된 시간표 처리 로직 구현
 
-		# 예시: 시간표 데이터를 JSON 형태로 변환
 		timetable_json = [
 			{
 				"id": course.id,
@@ -121,7 +119,6 @@ def recommend_timetable():
 			for course in recommended_courses
 		]
 
-		# 성공적인 응답 반환
 		return jsonify(timetable_json), 200
 
 	except (KeyError, IndexError, json.JSONDecodeError) as e:

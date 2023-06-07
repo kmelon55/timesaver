@@ -84,7 +84,7 @@ def login():
     try:
         if remember:
             session.permanent = True
-        session['username'] = username
+        session['userId'] = user.id
         return jsonify({'message': 'Login successful'}), 200
 
     except Exception as e:
@@ -94,7 +94,7 @@ def login():
 
 @user_bp.route('/logout', methods=['post'])
 def logout():
-    session.pop('username', None)
+    session.pop('userId', None)
     return jsonify({'message': 'Logout seccessful'})
 
 
