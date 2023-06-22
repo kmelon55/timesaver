@@ -2,7 +2,7 @@ from flask import Blueprint, session
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User
+from models import db, User, Course
 from flask import current_app
 
 
@@ -209,4 +209,90 @@ def update_user_profile(user_id):
     db.session.commit()
 
     return jsonify({'message': 'Profile updated successfully'}), 200
+
+
+@user_bp.route('/<int:user_id>/courses', methods=['POST'])
+def add_courses(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    data = request.get_json()
+
+    if not isinstance(data, list):
+        return jsonify({'message': 'Invalid data format. Expected a list of courses'}), 400
+
+    courses_to_add = []
+
+    for course_data in data:
+        course_id = course_data.get('id')
+        course = Course.query.get(course_id)
+
+        if not course:
+            return jsonify({'message': f'Course not found with ID {course_id}'}), 404
+
+        if course in user.courses:
+            return jsonify({'message': f'User is already enrolled in course with ID {course_id}'}), 400
+
+        courses_to_add.append(course)
+
+    user.courses.extend(courses_to_add)
+    db.session.commit()
+
+    return jsonify({'message': 'Courses added successfully'}), 201
+
+
+
+@user_bp.route('/<int:user_id>/courses/<int:course_id>', methods=['DELETE'])
+def delete_course(user_id, course_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    course = Course.query.get(course_id)
+
+    if not course:
+        return jsonify({'message': 'Course not found'}), 404
+
+    if course not in user.courses:
+        return jsonify({'message': 'User is not enrolled in this course'}), 404
+
+    user.courses.remove(course)
+    db.session.commit()
+
+    return jsonify({'message': 'Course deleted successfully'}), 200
+
+
+@user_bp.route('/<int:user_id>/courses', methods=['PUT'])
+def update_user_courses(user_id):
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    data = request.get_json()
+
+    if not isinstance(data, list):
+        return jsonify({'message': 'Invalid data format'}), 400
+
+    try:
+        user.courses = []
+
+        for course_info in data:
+            course_id = course_info.get('id')
+            course = Course.query.get(course_id)
+
+            if course:
+                user.courses.append(course)
+
+        db.session.commit()
+
+        return jsonify({'message': 'User courses updated successfully'}), 200
+
+    except Exception as e:
+        current_app.logger.error('An error occurred during user course update: %s', str(e))
+        return jsonify({'message': 'An error occurred during user course update'}), 500
+
 

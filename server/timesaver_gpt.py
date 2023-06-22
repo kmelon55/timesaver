@@ -3,7 +3,7 @@ import openai
 import json
 import traceback
 import ast
-from models import db, Course
+from models import db, Course, User
 from flask import session, Blueprint, jsonify
 
 
@@ -13,13 +13,26 @@ openai.api_key = OPENAI_API_KEY
 
 @timetable_bp.route('/recommend', methods=['GET'])
 def recommend_timetable():
-	user_data = {
-		"grade": [3],
-		"preferences": ["math", "computer science"],
-		"interests": ["artificial intelligence", "machine learning"],
-		"requirements": ["morning classes", "no classes on Friday"],
-		"schedule": ["월1", "수3"]
-	}
+	if 'userId' not in session:
+		return 'Login is required.', 401
+
+	user_id = session['userId']
+	user = db.session.query(User).get(user_id)
+
+	if user:
+		# user 정보 활용하여 API 요청
+		schedules = []
+		for course in user.courses:
+			course_schedule = [course.schedule[i:i+2] for i in range(0, len(course.schedule), 2)]
+			schedules = [slot[:2] for slot in course_schedule if len(slot) >= 2]
+
+		user_data = {
+			"grade": [user.grade],
+			"preferences": user.preferences,
+			"interests": user.interests,
+			"requirements": user.requirements,
+			"schedule": schedules
+		}
 
 	grade = user_data["grade"]
 	schedule = user_data["schedule"]
@@ -55,6 +68,7 @@ def recommend_timetable():
     	"please recommend a suitable timetable for the user by providing a Python array of course IDs."
 	)
 
+
 	# gpt_response = openai.Completion.create(
 	#     engine="text-davinci-003",
 	#     prompt=question,
@@ -85,7 +99,7 @@ def recommend_timetable():
 	}
 
 
-	# print("Question:", question)
+	print("Question:", question)
 	print("Answer:", gpt_response)
 
 
