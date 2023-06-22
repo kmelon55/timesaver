@@ -1,6 +1,6 @@
 db = {
 	'user' : 'root',
-    'password' : 'test1234',
+    'password' : 'songdong8',
     'host' : 'localhost',
     'port' : 3306,
     'database' : 'timesaver'
