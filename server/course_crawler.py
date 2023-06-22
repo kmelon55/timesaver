@@ -1,6 +1,5 @@
 import nest_asyncio
 import asyncio
-import lecture_mysql as to_mysql
 from pyppeteer import launch
 import re
 
@@ -207,6 +206,7 @@ async def find_subject(page, nowdd, clsfctn):
                         await click_btn(page, SEARCH_BTN_ID) #조회 클릭
                         totalnum = await get_totalnum(page, TOTALNUM_ID)#조회 후 강의 개수 받아오기
                         if totalnum != '0': #강의 개수 1개 이상일 때
+                            
                             to_mysql.input_lecture(
                                 await selected_dd_options(page), await data_crawling(page, totalnum),
                                 term, clsfctn
@@ -267,21 +267,26 @@ async def semester(page):
             except:
                 await asyncio.sleep(1)
         await find_subject(page, nowdd, clsfctn) 
-    
+
 async def main():
-    browser = await launch(headless=False, executablePath='C:\Program Files\Google\Chrome\Application\chrome.exe')
+    browser = await launch(headless=True, executablePath='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
     page = await browser.newPage()
-    
-    try :
-        await page.goto(URL)
-        await semester(page)
-    except :
-        pass
+    while True:
+        try :
+            await page.goto(URL)
+            await semester(page)
+            await browser.close()
+            return 0
+        except :
+            pass
 
-    await browser.close()
-
-
-if __name__ == '__main__':
+def crawling_lecture(recv_term):
+    global term
+    term = recv_term
     nest_asyncio.apply()
     asyncio.run(main())
 
+
+
+#사용 예시 - '1' 1학기 / '2' 2학기 / '6' 하계 / '7' 동계
+crawling_lecture('6')

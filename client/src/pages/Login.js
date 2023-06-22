@@ -29,7 +29,6 @@ function Login() {
   };
 
   return (
-    
     <div className={styles['container']}>
       <div className={styles['loginpage']}>
         <Link to={"/"}>
@@ -37,14 +36,23 @@ function Login() {
         </Link>
         <form onSubmit={handleLogin}>
           <div className={styles['-denterspace']}>
-          <input type="text" className={styles['rectangle8']} value={username} onChange={(e) => setUsername(e.target.value)} />
-
+            <input
+              type="text"
+              className={styles['rectangle8']}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
           <div className={styles['passwordenterspace']}>
-          <input type="text" className={styles['rectangle9']} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="text"
+              className={styles['rectangle9']}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <button type="submit" className={styles['signinbutton']}>
-          로그인
+            로그인
           </button>
         </form>
         <span className={styles['text']}>
@@ -53,18 +61,10 @@ function Login() {
         <span className={styles['text2']}>
           <span>PW :</span>
         </span>
-        {/* <button className={styles['signinbutton']}>
-          <span className={styles['text4']}>sign in</span>
-        </button> */}
-        {/* <button className={styles['find-id-wbutton']}>
-          <span className={styles['text5']}>
-            <span>find ID/PW</span>
-          </span>
-        </button>
-        <span className={styles['text7']}>/</span> */}
       </div>
     </div>
-  )
+  );
+  
 }
 
 export default Login
