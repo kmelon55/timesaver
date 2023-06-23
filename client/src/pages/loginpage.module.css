@@ -183,3 +183,16 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
+.signuplink{
+  top: 550px;
+  left: 175px;
+  width: 55px;
+  font-size: 12px;
+  height: 20px;
+  position: absolute;
+  text-align: center;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  border-width: 1px;
+}

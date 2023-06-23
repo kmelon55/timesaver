@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import BottomMenu from './BottomMenu';
 
 function Test() {
 
@@ -291,7 +293,7 @@ function Test() {
           <button onClick={() => setIsClicked(true)}>추천 시간표 보기</button>
           {isClicked ? generateListItems() : <p>추천 과목이 표시됩니다.</p>}
         </div>
-        {/* <button onClick={saveTable}>저장하기</button> */}
+        <BottomMenu />
       </div>
     );
 }

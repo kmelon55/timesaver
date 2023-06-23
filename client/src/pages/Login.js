@@ -24,7 +24,8 @@ function Login() {
       console.log('로그인 성공');
     } else {
       // 로그인 실패 시 처리
-      console.log('로그인 실패');
+      alert('로그인 실패');
+
     }
   };
 
@@ -54,6 +55,9 @@ function Login() {
           <button type="submit" className={styles['signinbutton']}>
             로그인
           </button>
+          <Link to={"/Register"}>
+          <span className={styles['signuplink']}>회원가입</span>
+          </Link>
         </form>
         <span className={styles['text']}>
           <span>ID :</span>
