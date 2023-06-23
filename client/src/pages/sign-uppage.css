@@ -1,0 +1,421 @@
+.sign-uppage-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.sign-uppage-sign-uppage {
+  width: 390px;
+  height: 844px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background-color: var(--dl-color-neutral_light-lightest);
+}
+.sign-uppage-loginoptions {
+  gap: 30px;
+  top: 69px;
+  left: 0px;
+  width: 390px;
+  height: 775px;
+  display: flex;
+  padding: 24px 24px 24px 30px;
+  position: absolute;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text {
+  gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.sign-uppage-text01 {
+  color: var(--dl-color-neutral_dark-darkest);
+  width: 327px;
+  height: auto;
+  text-align: left;
+  line-height: normal;
+}
+.sign-uppage-text03 {
+  color: var(--dl-color-neutral_dark-light);
+  width: 327px;
+  height: auto;
+  text-align: left;
+  line-height: 16px;
+}
+.sign-uppage-form {
+  gap: 16px;
+  width: 327px;
+  display: flex;
+  padding: 0 0 18px;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text-field {
+  gap: 8px;
+  width: 327px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text05 {
+  color: var(--dl-color-neutral_dark-dark);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: normal;
+}
+.sign-uppage-field {
+  gap: 8px;
+  display: flex;
+  padding: 12px 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+.sign-uppage-content {
+  gap: 6px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text07 {
+  gap: 1px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text08 {
+  color: var(--dl-color-neutral_dark-darkest);
+  height: auto;
+  text-align: left;
+  line-height: 20px;
+}
+.sign-uppage-cursor {
+  width: 0px;
+  height: 16px;
+}
+.sign-uppage-text-field1 {
+  gap: 8px;
+  width: 327px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text10 {
+  color: var(--dl-color-neutral_dark-dark);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: normal;
+}
+.sign-uppage-field1 {
+  gap: 8px;
+  display: flex;
+  padding: 12px 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+.sign-uppage-content1 {
+  gap: 6px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text12 {
+  gap: 1px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text13 {
+  color: var(--dl-color-neutral_dark-lightest);
+  height: auto;
+  text-align: left;
+  line-height: 20px;
+}
+.sign-uppage-text-field2 {
+  gap: 8px;
+  width: 327px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text15 {
+  color: var(--dl-color-neutral_dark-dark);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: normal;
+}
+.sign-uppage-field2 {
+  gap: 8px;
+  display: flex;
+  padding: 12px 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+.sign-uppage-content2 {
+  gap: 6px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text17 {
+  gap: 1px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text18 {
+  color: var(--dl-color-neutral_dark-lightest);
+  height: auto;
+  text-align: left;
+  line-height: 20px;
+}
+.sign-uppage-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.sign-uppage-fill {
+  top: 0px;
+  left: 0px;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+}
+.sign-uppage-text-field3 {
+  gap: 8px;
+  width: 327px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-field3 {
+  gap: 8px;
+  display: flex;
+  padding: 12px 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+.sign-uppage-content3 {
+  gap: 6px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text20 {
+  gap: 1px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text21 {
+  color: var(--dl-color-neutral_dark-lightest);
+  height: auto;
+  text-align: left;
+  line-height: 20px;
+}
+.sign-uppage-icon1 {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.sign-uppage-fill1 {
+  top: 0px;
+  left: 0px;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+}
+.sign-uppage-text-field4 {
+  gap: 8px;
+  width: 327px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text23 {
+  color: var(--dl-color-neutral_dark-dark);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: normal;
+}
+.sign-uppage-field4 {
+  gap: 8px;
+  display: flex;
+  padding: 12px 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+.sign-uppage-content4 {
+  gap: 6px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text25 {
+  gap: 1px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text26 {
+  color: var(--dl-color-neutral_dark-lightest);
+  height: auto;
+  text-align: left;
+  line-height: 20px;
+}
+.sign-uppage-text-field5 {
+  gap: 8px;
+  width: 327px;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.sign-uppage-text28 {
+  color: var(--dl-color-neutral_dark-dark);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: normal;
+}
+.sign-uppage-field5 {
+  gap: 8px;
+  display: flex;
+  padding: 12px 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+.sign-uppage-content5 {
+  gap: 6px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text30 {
+  gap: 1px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.sign-uppage-text31 {
+  color: var(--dl-color-neutral_dark-lightest);
+  height: auto;
+  text-align: left;
+  line-height: 20px;
+}
+.sign-uppage-frame93 {
+  gap: 12px;
+  width: 336px;
+  height: 32px;
+  display: flex;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+}
+.sign-uppage-checkbox {
+  top: 4px;
+  left: 0px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(197, 198, 204, 1);
+  border-style: solid;
+  border-width: 1.5px;
+  border-radius: 6px;
+}
+.sign-uppage-text33 {
+  top: 11px;
+  left: 36px;
+  color: var(--dl-color-neutral_dark-light);
+  width: 306px;
+  height: auto;
+  position: absolute;
+  flex-grow: 1;
+  text-align: left;
+  line-height: 16px;
+  font-size: 14px;
+}
+.sign-uppage-logoimage {
+  top: 54.885009765625px;
+  left: 265px;
+  width: 83px;
+  height: 116px;
+  position: absolute;
+}
+.sign-uppage-back-button {
+  top: 43.885009765625px;
+  left: 8px;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+}
+.register-button{
+  float: right;
+  top: 10px;
+}
+

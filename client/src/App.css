@@ -14,15 +14,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.loginspan{
-  color: white;
-  text-decoration: none;
-  margin: 7px;
-  font-size: 13px;
-  font-weight: 600;
-}
-.logininput{
-  margin-top: 50px;
+.outer{
   text-align: center;
 }
 .mypage{
@@ -54,31 +46,12 @@
 .alarm{
   background-color: green;
 }
-.table{
-  background-color: rgb(96, 96, 96);
-}
-.time_table{
-  margin: 0 auto;
-  margin-bottom: 100px;
-}
+
 .mytime{
   text-align: center;
   margin-top: 50px;
 }
-table {
-  width: 50%;
-  border-collapse: collapse;
-}
 
-th, td {
-  border: 1px solid rgb(217, 217, 217);
-  padding: 8px;
-  text-align: center;
-}
-
-td{
-  height: 50px;
-}
 
 
 .App-header {
@@ -104,7 +77,6 @@ td{
     transform: rotate(360deg);
   }
 }
-<<<<<<< HEAD
 
 .event-box{
   color: white;
@@ -163,36 +135,3 @@ td{
   height: 844px;
   margin: 0 auto;
 }
-
-/* CSS 코드 */
-.bottom_menu { position: fixed; bottom: 0px; left: 0px; width: 100%; height: 70px; z-index:100; border-top: 1px solid black; background-color: rgba(74, 96, 63, 1);}
-.bottom_menu > div { float: left; width: 33%; height: 100%; text-align: center; padding-top: 22px; color: white;}
-.bottom_menu a {color: white; text-decoration: none;}
-
-.subjectul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.subjectli {
-  margin-bottom: 10px;
-  padding: 10px;
-  height: 40px;
-  background-color: rgba(171, 190, 172, 1);
-  border-radius: 5px;
-  color: rgb(47, 47, 47);
-}
-
-.subjectli:last-child {
-  margin-bottom: 0;
-}
-
-.subjectli:hover {
-  background-color: rgb(200, 222, 201);
-}
-
-
-
-=======
->>>>>>> upstream/main

@@ -1,6 +1,7 @@
-import React from 'react'
-import logo from './cn.png';
+import React, { useState } from 'react'
+import logo from './logoimage.jpg';
 import { Link } from 'react-router-dom';
+import styles from './loginpage.module.css'
 
 function Login() {
 
@@ -28,13 +29,10 @@ function Login() {
   };
 
   return (
-    <div>
-      <div class="head">
+    <div className={styles['container']}>
+      <div className={styles['loginpage']}>
         <Link to={"/"}>
-          <img src={logo} className='App-logo' alt='React' />
-        </Link>
-        <Link to={"/Mypage"}>
-          <button className='mypage'>my page</button>
+          <img src={logo} className={styles['logoimage']} alt='React' />
         </Link>
         <form onSubmit={handleLogin}>
           <div className={styles['-denterspace']}>
@@ -65,7 +63,8 @@ function Login() {
         </span>
       </div>
     </div>
-  )
+  );
+  
 }
 
 export default Login

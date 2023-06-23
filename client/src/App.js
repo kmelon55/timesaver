@@ -9,7 +9,6 @@ import "./App.css";
 import Register from "./pages/Register";
 import Timetable from "./pages/TimeTable";
 import Test from "./pages/test";
-import List from "./pages/List";
 
 function App() {
   return (
@@ -24,7 +23,6 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Time" element={<Timetable />} />
         <Route path="/Test" element={<Test />} />
-        <Route path="/List" element={<List />} />
       </Routes>
     </BrowserRouter>
   );
