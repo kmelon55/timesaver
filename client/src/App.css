@@ -14,7 +14,15 @@
   justify-content: space-between;
   align-items: center;
 }
-.outer{
+.loginspan{
+  color: white;
+  text-decoration: none;
+  margin: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.logininput{
+  margin-top: 50px;
   text-align: center;
 }
 .mypage{
@@ -46,12 +54,31 @@
 .alarm{
   background-color: green;
 }
-
+.table{
+  background-color: rgb(96, 96, 96);
+}
+.time_table{
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
 .mytime{
   text-align: center;
   margin-top: 50px;
 }
+table {
+  width: 50%;
+  border-collapse: collapse;
+}
 
+th, td {
+  border: 1px solid rgb(217, 217, 217);
+  padding: 8px;
+  text-align: center;
+}
+
+td{
+  height: 50px;
+}
 
 
 .App-header {
@@ -77,6 +104,7 @@
     transform: rotate(360deg);
   }
 }
+<<<<<<< HEAD
 
 .event-box{
   color: white;
@@ -166,3 +194,5 @@
 
 
 
+=======
+>>>>>>> upstream/main

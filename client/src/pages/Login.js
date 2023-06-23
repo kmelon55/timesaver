@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import logo from './logoimage.jpg';
+import React from 'react'
+import logo from './cn.png';
 import { Link } from 'react-router-dom';
-import styles from './loginpage.module.css'
 
 function Login() {
 
@@ -24,16 +23,18 @@ function Login() {
       console.log('로그인 성공');
     } else {
       // 로그인 실패 시 처리
-      alert('로그인 실패');
-
+      console.log('로그인 실패');
     }
   };
 
   return (
-    <div className={styles['container']}>
-      <div className={styles['loginpage']}>
+    <div>
+      <div class="head">
         <Link to={"/"}>
-          <img src={logo} className={styles['logoimage']} alt='React' />
+          <img src={logo} className='App-logo' alt='React' />
+        </Link>
+        <Link to={"/Mypage"}>
+          <button className='mypage'>my page</button>
         </Link>
         <form onSubmit={handleLogin}>
           <div className={styles['-denterspace']}>
@@ -55,9 +56,6 @@ function Login() {
           <button type="submit" className={styles['signinbutton']}>
             로그인
           </button>
-          <Link to={"/Register"}>
-          <span className={styles['signuplink']}>회원가입</span>
-          </Link>
         </form>
         <span className={styles['text']}>
           <span>ID :</span>
@@ -67,8 +65,7 @@ function Login() {
         </span>
       </div>
     </div>
-  );
-  
+  )
 }
 
 export default Login
