@@ -14,7 +14,15 @@
   justify-content: space-between;
   align-items: center;
 }
-.outer{
+.loginspan{
+  color: white;
+  text-decoration: none;
+  margin: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.logininput{
+  margin-top: 50px;
   text-align: center;
 }
 .mypage{
@@ -46,12 +54,31 @@
 .alarm{
   background-color: green;
 }
-
+.table{
+  background-color: rgb(96, 96, 96);
+}
+.time_table{
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
 .mytime{
   text-align: center;
   margin-top: 50px;
 }
+table {
+  width: 50%;
+  border-collapse: collapse;
+}
 
+th, td {
+  border: 1px solid rgb(217, 217, 217);
+  padding: 8px;
+  text-align: center;
+}
+
+td{
+  height: 50px;
+}
 
 
 .App-header {
@@ -76,62 +103,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.event-box{
-  color: white;
-}
-
-.schedule td{
-  padding: 1px;
-}
-
-.time_table td{
-  border: 1px solid black;
-  height: 50px;
-  width: 64px;
-  position: relative;
-  padding:0;
-  border-color: lightgray;
-}
-.time_table button {
-  height: 70px;
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  width: 64px;
-  color: white;
-  border-style: groove;
-  border-color: white;
-  font-weight: 600;
-}
-
-.table{
-  background-color: rgb(96, 96, 96);
-}
-.time_table{
-  border-style: hidden;
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px rgba(121, 138, 122, 1);
-  margin-bottom: 50px;
-  border-collapse: collapse;
-  background: rgba(171, 190, 172, 1);
-  text-align: center;
-}
-.a2, .a5, .a8{
-  top:25px !important;
-}
-.delete{
-  color: black;
-  top: 0px;
-  position: absolute;
-  right: 3px;
-}
-.recoList{
-  display: block;
-}
-.container{
-  width: 390px;
-  height: 844px;
-  margin: 0 auto;
 }
