@@ -41,7 +41,6 @@ def get_all_users():
     return jsonify({'users': user_list}), 200
 
 
-
 @user_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -86,7 +85,6 @@ def register():
     except Exception as e:
         current_app.logger.error('An error occurred during user registration: %s', str(e))
         return jsonify({'message': 'An error occurred during user registration'}), 500
-
 
 
 @user_bp.route('/login', methods=['POST'])
@@ -149,6 +147,7 @@ def get_user_courses(user_id):
 
     return jsonify({'courses': course_list}), 200
 
+
 @user_bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user = User.query.get(user_id)
@@ -161,8 +160,7 @@ def delete_user(user_id):
     return jsonify({'message': 'User deleted successfully'}), 200
 
 
-# Create Flask blueprint for courses
-course_bp = Blueprint('course_bp', __name__)
+# course_bp = Blueprint('course_bp', __name__)
 
 
 @user_bp.route('/<int:user_id>/profile', methods=['GET'])
@@ -178,7 +176,6 @@ def get_user_profile(user_id):
     }
 
     return jsonify({'profile': profile}), 200
-
 
 
 @user_bp.route('/<int:user_id>/profile', methods=['PUT'])
@@ -241,7 +238,6 @@ def add_courses(user_id):
     db.session.commit()
 
     return jsonify({'message': 'Courses added successfully'}), 201
-
 
 
 @user_bp.route('/<int:user_id>/courses/<int:course_id>', methods=['DELETE'])

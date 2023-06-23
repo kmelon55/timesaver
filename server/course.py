@@ -28,8 +28,6 @@ def get_all_courses():
     return jsonify({'courses': course_list}), 200
 
 
-
-
 @course_bp.route('/', methods=['POST'])
 def create_course():
     data = request.get_json()
@@ -62,7 +60,6 @@ def create_course():
     return jsonify({'message': 'Course created successfully'}), 201
 
 
-
 @course_bp.route('/<int:course_id>', methods=['GET'])
 def get_course(course_id):
     course = Course.query.get(course_id)
@@ -88,7 +85,6 @@ def get_course(course_id):
     }
 
     return jsonify({'course': course_data}), 200
-
 
 
 @course_bp.route('/<int:course_id>', methods=['PUT'])
