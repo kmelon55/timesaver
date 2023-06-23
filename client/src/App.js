@@ -6,6 +6,9 @@ import Table from "./pages/Table";
 import Login from "./pages/Login";
 import Mypage from "./pages/Mypage";
 import "./App.css";
+import Register from "./pages/Register";
+import Timetable from "./pages/TimeTable";
+import Test from "./pages/test";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
         <Route path="/Table" element={<Table />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Mypage" element={<Mypage />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Time" element={<Timetable />} />
+        <Route path="/Test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
