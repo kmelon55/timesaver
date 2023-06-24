@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from models import db, Course, User
+from models import db, Course, User, Review
 
 course_bp = Blueprint('course', __name__)
 
@@ -26,8 +26,6 @@ def get_all_courses():
         course_list.append(course_data)
 
     return jsonify({'courses': course_list}), 200
-
-
 
 
 @course_bp.route('/', methods=['POST'])
@@ -62,7 +60,6 @@ def create_course():
     return jsonify({'message': 'Course created successfully'}), 201
 
 
-
 @course_bp.route('/<int:course_id>', methods=['GET'])
 def get_course(course_id):
     course = Course.query.get(course_id)
@@ -71,6 +68,16 @@ def get_course(course_id):
         return jsonify({'message': 'Course not found'}), 404
 
     user_ids = [user.id for user in course.users]
+
+    reviews = Review.query.filter_by(course_id=course_id).all()
+    review_data = []
+    for review in reviews:
+        review_data.append({
+            'id': review.id,
+            'user_id': review.user_id,
+            'rating': review.rating,
+            'comment': review.comment
+        })
 
     course_data = {
         'id': course.id,
@@ -84,11 +91,12 @@ def get_course(course_id):
         'minor_seats': course.minor_seats,
         'professor': course.professor,
         'schedule': course.schedule,
-        'user_ids': user_ids
+        'user_ids': user_ids,
+        'reviews': review_data
+
     }
 
     return jsonify({'course': course_data}), 200
-
 
 
 @course_bp.route('/<int:course_id>', methods=['PUT'])
@@ -138,3 +146,56 @@ def delete_course(course_id):
     db.session.commit()
 
     return jsonify({'message': 'Course deleted successfully'}), 200
+
+
+# Review API
+
+@course_bp.route('/<int:course_id>/review', methods=['POST'])
+def create_review(course_id):
+    data = request.get_json()
+    user_id = data.get('user_id')
+    rating = data.get('rating')
+    comment = data.get('comment')
+
+    user = User.query.get(user_id)
+    course = Course.query.get(course_id)
+
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+    if not course:
+        return jsonify({'message': 'Course not found'}), 404
+
+    review = Review(user=user, course=course, rating=rating, comment=comment)
+    db.session.add(review)
+    db.session.commit()
+
+    return jsonify({'message': 'Review created successfully'}), 201
+
+
+@course_bp.route('/review/<int:review_id>', methods=['PUT'])
+def update_review(review_id):
+    data = request.get_json()
+    rating = data.get('rating')
+    comment = data.get('comment')
+
+    review = Review.query.get(review_id)
+    if not review:
+        return jsonify({'message': 'Review not found'}), 404
+
+    review.rating = rating
+    review.comment = comment
+    db.session.commit()
+
+    return jsonify({'message': 'Review updated successfully'})
+
+
+@course_bp.route('/review/<int:review_id>', methods=['DELETE'])
+def delete_review(review_id):
+    review = Review.query.get(review_id)
+    if not review:
+        return jsonify({'message': 'Review not found'}), 404
+
+    db.session.delete(review)
+    db.session.commit()
+
+    return jsonify({'message': 'Review deleted successfully'})

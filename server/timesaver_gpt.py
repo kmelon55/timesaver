@@ -14,17 +14,18 @@ openai.api_key = OPENAI_API_KEY
 @timetable_bp.route('/recommend', methods=['GET'])
 def recommend_timetable():
 	if 'userId' not in session:
-		return 'Login is required.', 401
+		return jsonify({'message': 'Login is required'}), 401
 
 	user_id = session['userId']
 	user = db.session.query(User).get(user_id)
 
 	if user:
-		# user 정보 활용하여 API 요청
+		print(user.id)
 		schedules = []
 		for course in user.courses:
 			course_schedule = [course.schedule[i:i+2] for i in range(0, len(course.schedule), 2)]
-			schedules = [slot[:2] for slot in course_schedule if len(slot) >= 2]
+			course_schedules = [slot[:2] for slot in course_schedule if len(slot) >= 2]
+			schedules.extend(course_schedules) 
 
 		user_data = {
 			"grade": [user.grade],
@@ -34,17 +35,18 @@ def recommend_timetable():
 			"schedule": schedules
 		}
 
-	grade = user_data["grade"]
-	schedule = user_data["schedule"]
+
+	# grade = user_data["grade"]
+	# schedule = user_data["schedule"]
 
 	# course filtering
-	filtered_courses = db.session.query(Course).filter(Course.target_grade.in_(grade)).all()
+	filtered_courses = db.session.query(Course).filter(Course.target_grade.in_(user_data["grade"])).all()
 
 	# schedule filtering
 	available_courses = []
 	for course in filtered_courses:
 		course_schedule = [course.schedule[i:i+2] for i in range(0, len(course.schedule), 2)]
-		if not any(time in course_schedule for time in schedule):
+		if not any(time in course_schedule for time in user_data["schedule"]):
 			available_courses.append({
 				"id": course.id,
 				"name": course.name,
@@ -52,8 +54,10 @@ def recommend_timetable():
 				"target_grade": course.target_grade
 			})
 
-	for course in available_courses:
-		print(course)
+	if not available_courses:
+		return jsonify({'message': 'No available courses'}), 401
+
+	print(available_courses)
 
 	# TODO : Exclude courses that users are taking from timetable data
 	# TODO : Implementing a preprocessing process that leaves the minimum data needed only for timetable recommendations
@@ -69,34 +73,34 @@ def recommend_timetable():
 	)
 
 
-	# gpt_response = openai.Completion.create(
-	#     engine="text-davinci-003",
-	#     prompt=question,
-	#     max_tokens=150,
-	#     n=1,
-	#     stop=None,
-	#     temperature=0.7,
-	# )
+	gpt_response = openai.Completion.create(
+	    engine="text-davinci-003",
+	    prompt=question,
+	    max_tokens=150,
+	    n=1,
+	    stop=None,
+	    temperature=0.4,
+	)
 
 
-	gpt_response = {
-		"choices": [
-			{
-			"finish_reason": "stop",
-			"index": 0,
-			"text": "\n\nrecommended_timetable = [7, 9, 15, 20]"
-			}
-		],
-		"created": 1686058213,
-		"id": "cmpl-7OR3Fb6YqCTFDvsqv1PPA4BpX4DCb",
-		"model": "text-davinci-003",
-		"object": "text_completion",
-		"usage": {
-			"completion_tokens": 18,
-			"prompt_tokens": 297,
-			"total_tokens": 315
-		}
-	}
+	# gpt_response = {
+	# 	"choices": [
+	# 		{
+	# 		"finish_reason": "stop",
+	# 		"index": 0,
+	# 		"text": "\n\nrecommended_timetable = [7, 9, 15, 20]"
+	# 		}
+	# 	],
+	# 	"created": 1686058213,
+	# 	"id": "cmpl-7OR3Fb6YqCTFDvsqv1PPA4BpX4DCb",
+	# 	"model": "gpt-3.5-turbo",
+	# 	"object": "text_completion",
+	# 	"usage": {
+	# 		"completion_tokens": 18,
+	# 		"prompt_tokens": 297,
+	# 		"total_tokens": 315
+	# 	}
+	# }
 
 
 	print("Question:", question)
