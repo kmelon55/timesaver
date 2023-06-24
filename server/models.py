@@ -64,3 +64,22 @@ class Course(db.Model):
         self.minor_seats = minor_seats
         self.professor = professor
         self.schedule = schedule
+
+
+class Review(db.Model):
+    __tablename__ = 'reviews'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.Text, nullable=True)
+
+    user = db.relationship('User', backref='reviews')
+    course = db.relationship('Course', backref='reviews')
+
+    def __init__(self, user, course, rating, comment):
+        self.user = user
+        self.course = course
+        self.rating = rating
+        self.comment = comment
