@@ -6,6 +6,8 @@ __pycache__/
 config.py
 migrations/
 
+migrations/
+
 .Python
 [Bb]in
 [Ii]nclude
