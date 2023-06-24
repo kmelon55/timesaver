@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from './logoimage.jpg';
 import { Link } from 'react-router-dom';
-import styles from './loginpage.module.css'
+import styles from './loginpage.module.css';
+import Table from './Table';
 
 function Login() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,14 +24,41 @@ function Login() {
     if (response.ok) {
       // 로그인 성공 시 처리
       console.log('로그인 성공');
+      setIsLoggedIn(true);
+      localStorage.setItem('loggedInUser', 'username');
     } else {
       // 로그인 실패 시 처리
       console.log('로그인 실패');
     }
   };
 
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = () => {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
+  const handleLogout = () => {
+    // 로그아웃 처리
+    // ...
+
+    // 로그아웃 시 상태 업데이트 및 로컬 스토리지에서 삭제
+    setIsLoggedIn(false);
+    localStorage.removeItem('loggedInUser');
+  };
+
+
   return (
-    <div className={styles['container']}>
+    <div>
+    {isLoggedIn? <Table />: 
+    (<div className={styles['container']}>
       <div className={styles['loginpage']}>
         <Link to={"/"}>
           <img src={logo} className={styles['logoimage']} alt='React' />
@@ -62,6 +91,7 @@ function Login() {
           <span>PW :</span>
         </span>
       </div>
+    </div>)}
     </div>
   );
   
