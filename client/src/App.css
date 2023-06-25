@@ -166,3 +166,30 @@
 .space{
   height: 200px;
 }
+.allcourse{
+  border: 1px solid gainsboro;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.add{
+  float: right;
+}
+
+.signup{
+  top: 530px;
+  left: 175px;
+  width: 55px;
+  height: 20px;
+  position: absolute;
+  text-align: center;
+  border-radius: 5px;
+  color: rgb(78, 78, 78);
+  border-width: 1px;
+}
+
+.signup a{
+  color: rgb(78, 78, 78);
+  text-decoration: none;
+  font-size: 13px;
+}

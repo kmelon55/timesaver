@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import logo from './logoimage.jpg';
+import logo from './logoimage.png';
 import { Link } from 'react-router-dom';
 import styles from './loginpage.module.css';
 import Table from './Table';
@@ -83,6 +83,7 @@ function Login() {
           <button type="submit" className={styles['signinbutton']}>
             로그인
           </button>
+          <span className='signup'><Link to={"/register"}>sign up</Link></span>
         </form>
         <span className={styles['text']}>
           <span>ID :</span>

@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Timetable from "./pages/TimeTable";
 import Test from "./pages/test";
 import List from "./pages/List";
+import Recommend from "./pages/Recommend";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Time" element={<Timetable />} />
         <Route path="/Test" element={<Test />} />
         <Route path="/List" element={<List />} />
+        <Route path="/Recommend" element={<Recommend />} />
       </Routes>
     </BrowserRouter>
   );

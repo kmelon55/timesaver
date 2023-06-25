@@ -401,9 +401,9 @@
   font-size: 14px;
 }
 .sign-uppage-logoimage {
-  top: 54.885009765625px;
+  top: 84.885009765625px;
   left: 265px;
-  width: 83px;
+  width: 120px;
   height: 116px;
   position: absolute;
 }
@@ -417,5 +417,6 @@
 .register-button{
   float: right;
   top: 10px;
+  border-radius: 5px;
 }
 

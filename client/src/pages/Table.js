@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import BottomMenu from './BottomMenu';
+import List from './List';
 
-function Test() {
+function Table() {
 
     const [isClicked, setIsClicked] = useState(false);
     const [clickedData, setClickedData] = useState(null);
+    const [myTable, setMyTable] = useState(false);
 
     const [isVisible, setIsVisible] = useState([false, false, false, false, false]);
       
@@ -21,6 +23,26 @@ function Test() {
       ["16", "", "", "", "",""],
       ["17", "", "", "", "",""]
     ]);
+
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+      getCourses();
+    }, []);
+  
+    const getCourses = async() => {
+      await fetch('/timetable/recommend')
+        .then(response => response.json())
+        .then(data => {
+          const { courses } = data;
+          setCourses(courses);
+        })
+        .catch(error => {
+          console.error('데이터를 불러오는 중 오류가 발생했습니다:', error);
+        });
+    };
+
+    console.log(courses)
 
     const profiles = [
       {
@@ -60,6 +82,15 @@ function Test() {
         return profiles.map((profile, index) => (
           <button className='recoList' key={index} onClick={() => addButton(index)}>{profile.name+':'+profile.day+'('+profile.starttime+'~'+profile.endtime+')' }</button>
         ));
+    }
+
+    function checkCourse(){
+      if(myTable===false){
+        setMyTable(true);
+      }
+      else{
+        setMyTable(false);
+      }
     }
 
     const generateRandomColor = () => {
@@ -253,16 +284,16 @@ function Test() {
 
     }
 
-    useEffect(() => {
-      const savedData = JSON.parse(localStorage.getItem('tableData'));
-      if (savedData) {
-        setTableData(savedData);
-      }
-    }, []);
+    // useEffect(() => {
+    //   const savedData = JSON.parse(localStorage.getItem('tableData'));
+    //   if (savedData) {
+    //     setTableData(savedData);
+    //   }
+    // }, []);
 
-    useEffect(() => {
-      localStorage.setItem('tableData', JSON.stringify(tableData));
-    }, [tableData]);
+    // useEffect(() => {
+    //   localStorage.setItem('tableData', JSON.stringify(tableData));
+    // }, [tableData]);
 
     // function saveTable(){
     //   localStorage.setItem('saveTable', tableData);
@@ -289,8 +320,10 @@ function Test() {
           </tbody>
         </table>
         <div>
-          <button onClick={() => setIsClicked(true)}>추천 시간표 보기</button>
-          {isClicked ? generateListItems() : <p>추천 과목이 표시됩니다.</p>}
+          {/* <button onClick={() => setIsClicked(true)}>추천 시간표 보기</button>
+          {isClicked ? generateListItems() : <p>추천 과목이 표시됩니다.</p>} */}
+          <button onClick={checkCourse}>전체강좌 보기</button>
+          {myTable ? <List /> : <p></p>}
         </div>
         <div className='space'>
         </div>
@@ -299,4 +332,4 @@ function Test() {
     );
 }
 
-export default Test;
+export default Table;

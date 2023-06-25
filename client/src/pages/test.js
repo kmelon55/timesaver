@@ -41,10 +41,7 @@ const MyComponent = () => {
             <tr key={rowIndex}>
               {row.map((cell, columnIndex) => (
                 <td key={columnIndex}>
-                  <input
-                    value={cell}
-                    onChange={e => handleUpdateCell(rowIndex, columnIndex, e.target.value)}
-                  />
+                  {cell}
                 </td>
               ))}
             </tr>
