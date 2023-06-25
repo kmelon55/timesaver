@@ -47,9 +47,9 @@ class Course(db.Model):
     subject = db.Column(db.String(50), nullable=True)  # 교과 구분
     subject_code = db.Column(db.String(20), nullable=False)  # 과목 코드
     target_grade = db.Column(db.String(10), nullable=False)  # 대상 학년
-    major_seats = db.Column(db.Integer, nullable=False)  # 자과 여석
-    other_seats = db.Column(db.Integer, nullable=False)  # 타과 여석
-    minor_seats = db.Column(db.Integer, nullable=False)  # 부전공 여석
+    major_seats = db.Column(db.Integer, nullable=True)  # 자과 여석
+    other_seats = db.Column(db.Integer, nullable=True)  # 타과 여석
+    minor_seats = db.Column(db.Integer, nullable=True)  # 부전공 여석
     professor = db.Column(db.String(80), nullable=False)  # 담당 교수
     schedule = db.Column(db.String(100), nullable=False)  # 강의 시간
 
