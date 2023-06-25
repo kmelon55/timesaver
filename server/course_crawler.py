@@ -2,11 +2,12 @@ import nest_asyncio
 import asyncio
 from pyppeteer import launch
 import re
+from pprint import pprint
+from models import db, Course
+from app import create_app
+app = create_app()
 
-#
 term = '1' #  1학기-1 / 2학기-2 / 하계-6 / 동계-7 > 드롭다운 value임
-
-
 
 TERM_NAME = {'1' : 'normal1', '2' : 'normal2', '6' : 'summer', '7' : 'winter'}
 CLASSIFICATION_NAME = {'1' : 'major', '2' : 'general', '3' : 'none'} #전공/교양으로 나누어서 테이블에 저장하기 위한 테이블 이름 요소
@@ -24,7 +25,7 @@ ENTERYEAR_ID = "#ContentPlaceHolder_ContentPlaceHolderSub_ddlHakMoonApply_year"
 
 DAESANG = '0' #수강장소 : 전체
 
-
+course = []
 
 #강의실 나누기
 PATTERN = re.compile(r"([\w\-()]{2,}?)\1+") #def find_repeated_string(s):
@@ -36,12 +37,11 @@ def find_repeated_string(s):
         return s
 
 #강의시간 나누기
-DAYS_TEXT = {'월': 'mon', '화': 'tue', '수': 'wen', '목': 'thu', '금': 'fri', '토': 'sat', '일': 'sun'} #def split_classtime(s):
 def split_classtime(s):
     days = re.findall('[가-힣]+', s)
     times = re.findall('\d+', s)
-    days = [DAYS_TEXT[day] for day in days]
-    return ''.join([days + time + ' ' for days, time in zip(days, times)]).strip()
+    return ''.join([day + time for day, time in zip(days, times)]).strip()
+
 
 # 페이지에 있는 모든 드롭다운 요소 이름 가져오기
 async def dropdowns_set_apply(page):
@@ -168,6 +168,60 @@ async def data_crawling(page, totalnum):
             await page.reload()
             continue
 
+def remove_ignore_data(data, clsfctn):
+    filtered_data = []
+    clsfctn_index = int(int(clsfctn) - 1)
+    for lecture in data:
+        filtered_data.append(lecture)
+    return filtered_data
+
+
+
+def create_table(year, term, clsfctn):
+    table_name = f'{year}_{TERM_NAME[term]}_{CLASSIFICATION_NAME[clsfctn]}'
+    print(f"Table: {table_name}\n")
+    return table_name
+
+
+def input_lecture(selected_dd_options, lecture_data, term, clsfctn):
+    lecture_data = remove_ignore_data(lecture_data, clsfctn)
+    num = 0
+    with app.app_context():
+
+        for course_data in lecture_data:
+            name = course_data[2]
+            location = course_data[5]
+            subject = course_data[6]
+            subject_code = course_data[0]
+            target_grade = course_data[7]
+            professor = course_data[3]
+            schedule = course_data[4] 
+
+            # 이미 존재하는 과목인지 검증
+            existing_course = Course.query.filter_by(subject_code=subject_code).first()
+            if existing_course:
+                print(f"이미 존재하는 과목입니다: {subject_code}")
+            else:
+                course = Course(
+                    name=name,
+                    location=location,
+                    subject=subject,
+                    subject_code=subject_code,
+                    target_grade=target_grade,
+                    major_seats=None,
+                    other_seats=None,
+                    minor_seats=None,
+                    professor=professor,
+                    schedule=schedule
+                )
+                db.session.add(course)
+                db.session.commit()
+                num += 1
+                print(num)
+                print(f"과목이 성공적으로 저장되었습니다: {subject_code}")
+
+    return lecture_data
+
 #과목 찾기
 IGNORE_LIST = [
     ['선택하세요', '전체(공통)'], #전공
@@ -177,9 +231,14 @@ IGNORE_LIST = [
     "2010년 입학자",
     "2011년 입학자",
     "2012년 입학자",
-    "2013년 입학자"
+    "2013년 입학자",
+    "2014년 입학자",
+    "2015년 입학자",
+    "2016년 입학자",
+    "2017년 입학자"
     ]
 ]
+
 async def find_subject(page, nowdd, clsfctn):
     try:
         await page.waitForSelector(SEARCH_BTN_ID)
@@ -188,8 +247,9 @@ async def find_subject(page, nowdd, clsfctn):
             await click_btn(page, SEARCH_BTN_ID) #조회 클릭
             totalnum = await get_totalnum(page, TOTALNUM_ID)#조회 후 강의 개수 받아오기
             if totalnum != '0': #강의 개수 1개 이상일 때
-                to_mysql.input_lecture(
-                    await selected_dd_options(page), await data_crawling(page, totalnum),
+                input_lecture(
+                    await selected_dd_options(page),
+                    await data_crawling(page, totalnum),
                     term, clsfctn
                 )
 
@@ -198,24 +258,26 @@ async def find_subject(page, nowdd, clsfctn):
             cssid = dropdown_set[str(nowdd)] #현재 선택할 드롭다운의 cssid 선택
             option_in_dropdown = await option_in_dropdown_apply(page, cssid) #현재 선택할 드롭다운의 옵션들 받아오기
             
-            print(int(clsfctn)-1)
+            print(clsfctn-1)
             for key in option_in_dropdown:
-                if not option_in_dropdown[key] in IGNORE_LIST[int(clsfctn) - 1]:
+                if not option_in_dropdown[key] in IGNORE_LIST[clsfctn - 1]:
                     await set_dropdown(page, cssid, key) #드롭다운의 옵션 선택
                     if (len(dropdown_set) - 1) == nowdd : #현재 선택이 마지막일 경우
                         await click_btn(page, SEARCH_BTN_ID) #조회 클릭
                         totalnum = await get_totalnum(page, TOTALNUM_ID)#조회 후 강의 개수 받아오기
                         if totalnum != '0': #강의 개수 1개 이상일 때
-                            
-                            to_mysql.input_lecture(
-                                await selected_dd_options(page), await data_crawling(page, totalnum),
+                            input_lecture(
+                                await selected_dd_options(page),
+                                await data_crawling(page, totalnum),
                                 term, clsfctn
                             )
 
                     else: #옵션을 선택해야할 드롭다운이 아직 남았을 경우
                         await find_subject(page, nowdd+1, clsfctn) #재귀
-    except:
-        print("[Error : find_subject()]")
+    except Exception as e:
+        print(f"[Error : find_subject()] {e}")
+        import traceback
+        traceback.print_exc()
 
 #학기에 맞춰 작업
 async def semester(page):
@@ -224,8 +286,8 @@ async def semester(page):
         #########전공별 크롤링
         subj = '2' #전공
         nowdd = 4 
-        clsfctn = '1' #classfication 전공(1)/교양(2)/계절(3)을 전달
-        to_mysql.create_table(year, term, clsfctn)
+        clsfctn = 1 #classfication 전공(1)/교양(2)/계절(3)을 전달
+        await set_dropdown(page, CLASSIFICATION_ID, subj)
         while True:
             try:
                 await page.select(SEMESTER_ID, term) #학기 nowdd = 1
@@ -239,8 +301,8 @@ async def semester(page):
         #########교양 크롤링
         subj = '1' #교양/기타
         nowdd = 4
-        clsfctn = '2'
-        to_mysql.create_table(year, term, clsfctn)
+        clsfctn = 2
+        await set_dropdown(page, CLASSIFICATION_ID, subj)
         while True:
             try:
                 await page.select(SEMESTER_ID, term) #학기 nowdd = 1
@@ -255,8 +317,8 @@ async def semester(page):
         subj = '0' #전체
         grade = '1'
         nowdd = -1 #계절은 nowdd 마이너스로 넘김
-        clsfctn = '3'
-        to_mysql.create_table(year, term, clsfctn)
+        clsfctn = 3
+        await set_dropdown(page, CLASSIFICATION_ID, subj)
         while True:
             try:
                 await page.select(SEMESTER_ID, term) #학기 nowdd = 1
@@ -269,16 +331,15 @@ async def semester(page):
         await find_subject(page, nowdd, clsfctn) 
 
 async def main():
-    browser = await launch(headless=True, executablePath='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
+    browser = await launch(
+        headless=True,
+        args=['--no-sandbox']
+    )
     page = await browser.newPage()
-    while True:
-        try :
-            await page.goto(URL)
-            await semester(page)
-            await browser.close()
-            return 0
-        except :
-            pass
+    await page.goto(URL)
+    await semester(page)
+    await browser.close()
+    return
 
 def crawling_lecture(recv_term):
     global term

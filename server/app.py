@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 
 
+
 def create_app(debug=True):
     app = Flask(__name__)
     CORS(app)
