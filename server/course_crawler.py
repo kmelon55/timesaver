@@ -284,20 +284,20 @@ async def semester(page):
     year = await text_of_selected(page, YEAR_DD_ID)
     if int(term) < 3: #일반학기
         #########전공별 크롤링
-        subj = '2' #전공
-        nowdd = 4 
-        clsfctn = 1 #classfication 전공(1)/교양(2)/계절(3)을 전달
-        await set_dropdown(page, CLASSIFICATION_ID, subj)
-        while True:
-            try:
-                await page.select(SEMESTER_ID, term) #학기 nowdd = 1
-                await page.select(CLASSIFICATION_ID, subj) #교육과정 2
-                await page.select(CLASSLOCAL_ID, DAESANG) #수강장소 3
-                break
-            except:
-                await asyncio.sleep(1)
-        await find_subject(page, nowdd, clsfctn)
-        await page.reload()
+        # subj = '2' #전공
+        # nowdd = 4 
+        # clsfctn = 1 #classfication 전공(1)/교양(2)/계절(3)을 전달
+        # await set_dropdown(page, CLASSIFICATION_ID, subj)
+        # while True:
+        #     try:
+        #         await page.select(SEMESTER_ID, term) #학기 nowdd = 1
+        #         await page.select(CLASSIFICATION_ID, subj) #교육과정 2
+        #         await page.select(CLASSLOCAL_ID, DAESANG) #수강장소 3
+        #         break
+        #     except:
+        #         await asyncio.sleep(1)
+        # await find_subject(page, nowdd, clsfctn)
+        # await page.reload()
         #########교양 크롤링
         subj = '1' #교양/기타
         nowdd = 4

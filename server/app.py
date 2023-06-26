@@ -28,10 +28,6 @@ def create_app(debug=True):
         app.register_blueprint(course_bp, url_prefix='/course')
         app.register_blueprint(timetable_bp, url_prefix='/timetable')
 
-        @app.route("/test", methods=['GET'])
-        def test():
-            return {"test": ["1", "2"]}
-
     return app
 
 
