@@ -10,7 +10,7 @@
 }
 .head{
   display: flex;
-  background : green;
+  background : rgb(101, 171, 101);
   justify-content: space-between;
   align-items: center;
 }
@@ -192,4 +192,17 @@
   color: rgb(78, 78, 78);
   text-decoration: none;
   font-size: 13px;
+}
+.register-button{
+  background-color: rgba(74, 96, 63, 1);
+  width: 120px;
+  height: 30px;
+  color: rgb(182, 182, 182);
+}
+
+.logoutbtn{
+  background-color: rgba(74, 96, 63, 1);
+  width: 120px;
+  height: 30px;
+  color: rgb(182, 182, 182);
 }

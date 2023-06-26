@@ -350,4 +350,4 @@ def crawling_lecture(recv_term):
 
 
 #사용 예시 - '1' 1학기 / '2' 2학기 / '6' 하계 / '7' 동계
-crawling_lecture('6')
+crawling_lecture('2')

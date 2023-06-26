@@ -24,12 +24,9 @@ function Table() {
     ];
 
     const [tableData, setTableData] = useState(() => {
-      const storedArray = sessionStorage.getItem('tableData');
-      if (storedArray) {
-        return JSON.parse(storedArray);
-      } else {
+      
         return initialData;
-      }
+    
     });
 
     const [courses, setCourses] = useState([]);
@@ -102,6 +99,7 @@ function Table() {
 
           
             setTableData(newTableData);
+
     
         }
         if (clickedItem.schedule === '월3수3') {
@@ -147,12 +145,12 @@ function Table() {
 
             const newTableData = [...tableData];
             newTableData[5][1] = <button className='monday'
-            style={isVisible[2]?{display:'none'}:{ height: '100px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[2]?{display:'none'}:{ height: '100px', backgroundColor: 'rgb(101, 171, 101)' , display:'block'}} disabled>
             {clickedItem.name}
             </button>
             
             newTableData[5][3] = <button className='monday'
-            style={isVisible[2]?{display:'none'}:{ height: '100px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[2]?{display:'none'}:{ height: '100px', backgroundColor: 'rgb(101, 171, 101)' , display:'block'}} disabled>
             {clickedItem.name}
             </button>;
 
@@ -204,12 +202,12 @@ function Table() {
 
             const newTableData = [...tableData];
             newTableData[1][2] = <button className='monday'
-            style={isVisible[5]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[5]?{display:'none'}:{ height: '75px', backgroundColor: 'green' , display:'block'}} disabled>
             {clickedItem.name}
             </button>
             
             newTableData[1][4] = <button className='monday'
-            style={isVisible[5]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[5]?{display:'none'}:{ height: '75px', backgroundColor: 'green' , display:'block'}} disabled>
             {clickedItem.name}
             </button>;
 
@@ -233,12 +231,12 @@ function Table() {
 
             const newTableData = [...tableData];
             newTableData[2][2] = <button className='monday'
-            style={isVisible[4]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[4]?{display:'none'}:{ height: '75px', top:'25px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
             {clickedItem.name}
             </button>
             
             newTableData[2][4] = <button className='monday'
-            style={isVisible[4]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[4]?{display:'none'}:{ height: '75px', top:'25px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
             {clickedItem.name}
             </button>;
 
@@ -262,12 +260,12 @@ function Table() {
 
             const newTableData = [...tableData];
             newTableData[4][2] = <button className='monday'
-            style={isVisible[6]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[6]?{display:'none'}:{ height: '75px', backgroundColor: 'brown' , display:'block'}} disabled>
             {clickedItem.name}
             </button>
             
             newTableData[4][4] = <button className='monday'
-            style={isVisible[6]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[6]?{display:'none'}:{ height: '75px', backgroundColor: 'brown' , display:'block'}} disabled>
             {clickedItem.name}
             </button>;
 
@@ -291,12 +289,12 @@ function Table() {
 
             const newTableData = [...tableData];
             newTableData[5][2] = <button className='monday'
-            style={isVisible[7]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[7]?{display:'none'}:{ height: '75px', top:'25px', backgroundColor: 'rgb(0, 90, 0)' , display:'block'}} disabled>
             {clickedItem.name}
             </button>
             
             newTableData[5][4] = <button className='monday'
-            style={isVisible[7]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[7]?{display:'none'}:{ height: '75px', top:'25px',backgroundColor: 'rgb(0, 90, 0)' , display:'block'}} disabled>
             {clickedItem.name}
             </button>;
 
@@ -349,12 +347,12 @@ function Table() {
 
             const newTableData = [...tableData];
             newTableData[8][2] = <button className='monday'
-            style={isVisible[9]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[9]?{display:'none'}:{ height: '75px', top:'25px', backgroundColor: 'rgb(101, 171, 101)' , display:'block'}} disabled>
             {clickedItem.name}
             </button>
             
             newTableData[8][4] = <button className='monday'
-            style={isVisible[9]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
+            style={isVisible[9]?{display:'none'}:{ height: '75px', top:'25px', backgroundColor: 'rgb(101, 171, 101)' , display:'block'}} disabled>
             {clickedItem.name}
             </button>;
 
@@ -363,45 +361,6 @@ function Table() {
     
         }
 
-        if (clickedItem.day === '') {
-          let row = 0;
-          let col = 2;
-  
-          if (clickedItem.starttime === 9) {
-            row = 1;
-          } else if (clickedItem.starttime === 10.5) {
-            row = 2;
-          } else if (clickedItem.starttime === 12) {
-            row = 4;
-          } else if (clickedItem.starttime === 13.5) {
-            row = 5;
-          } else if (clickedItem.starttime === 15) {
-            row = 7;
-          } else if (clickedItem.starttime === 16.5) {
-            row = 8;
-          }
-
-          if(isVisible[1]==false){
-            const updatedItems = [...isVisible];
-            updatedItems[1] = true;
-            setIsVisible(updatedItems);
-            }
-            else{
-            const updatedItems = [...isVisible];
-            updatedItems[1] = false;
-            setIsVisible(updatedItems);
-            }
-
-          const newTableData = [...tableData];
-          newTableData[row][col] = <button className={('a')+row}
-          style={isVisible[1]?{display:'none'}:{ height: '75px', backgroundColor: generateRandomColor() , display:'block'}} disabled>
-          {clickedItem.name}
-          </button>;
-
-          
-          setTableData(newTableData);
-  
-        }
     }
 
     useEffect(() => {

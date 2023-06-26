@@ -37,7 +37,7 @@ function Register() {
     if (signupSuccess) {
         // 회원가입이 성공하면 팝업창을 띄우고 로그인 페이지로 리다이렉트
         alert('회원가입이 완료되었습니다');
-        window.location.href = '/Home';
+        window.location.href = '/';
       }
 
   return (
