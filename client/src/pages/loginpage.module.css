@@ -34,17 +34,16 @@
   flex-shrink: 0;
 }
 .rectangle8 {
-  top: 0px;
-  left: 13.290464401245117px;
-  width: 136px;
-  height: 25px;
+  top: -2px;
+  left: 10px;
+  width: 155px;
+  height: 20px;
   position: absolute;
   border-radius: 15px;
-  background-color: rgba(171, 190, 172, 1);
   border-color: black;
 }
 .rectangle8:focus{
-  background-color: white;
+  background-color: rgb(99, 189, 111);
   border-color: black;
   outline: none;
 }
@@ -73,17 +72,16 @@
   flex-shrink: 0;
 }
 .rectangle9 {
-  top: 0px;
-  left: 13.290465354919434px;
-  width: 136px;
-  height: 25px;
+  top: -2px;
+  left: 10px;
+  width: 155px;
+  height: 20px;
   position: absolute;
   border-radius: 15px;
-  background-color: rgba(171, 190, 172, 1);
   border-color: black;
 }
 .rectangle9:focus{
-  background-color: white;
+  background-color: rgb(99, 189, 111);
   border-color: black;
   outline: none;
 }
@@ -133,7 +131,7 @@
   text-decoration: none;
 }
 .signinbutton {
-  top: 520px;
+  top: 510px;
   left: 175px;
   width: 55px;
   height: 20px;

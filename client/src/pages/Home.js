@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import logo from './logoimage.jpg';
+import logo from './logoimage.png';
 import { Link } from 'react-router-dom';
 import styles from './loginpage.module.css';
 import Table from './Table';
+import Recommend from './Recommend';
 
 function Login() {
 
@@ -25,7 +26,7 @@ function Login() {
       // 로그인 성공 시 처리
       console.log('로그인 성공');
       setIsLoggedIn(true);
-      localStorage.setItem('loggedInUser', 'username');
+      localStorage.setItem('loggedInUser', username);
     } else {
       // 로그인 실패 시 처리
       console.log('로그인 실패');
@@ -57,7 +58,7 @@ function Login() {
 
   return (
     <div>
-    {isLoggedIn? <Table />: 
+    {isLoggedIn? <Recommend />: 
     (<div className={styles['container']}>
       <div className={styles['loginpage']}>
         <Link to={"/"}>
@@ -83,6 +84,7 @@ function Login() {
           <button type="submit" className={styles['signinbutton']}>
             로그인
           </button>
+          <span className='signup'><Link to={"/register"}>sign up</Link></span>
         </form>
         <span className={styles['text']}>
           <span>ID :</span>

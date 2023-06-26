@@ -1,18 +1,38 @@
-import React from 'react';
-import BottomMenu from './BottomMenu';
+import React, { useEffect, useState } from 'react';
 
 function List(){
-  const array = ['항목 1', '항목 2', '항목 3'];
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+      getCourses();
+    }, []);
+  
+    const getCourses = async() => {
+      await fetch('/course')
+        .then(response => response.json())
+        .then(data => {
+          const { courses } = data;
+          setCourses(courses);
+        })
+        .catch(error => {
+          console.error('데이터를 불러오는 중 오류가 발생했습니다:', error);
+        });
+    };
+    console.log(courses);
+  
 
   return (
     <div className='container'>
-      <h2>강의 목록 조회</h2>
-      <ul className='subjectul'>
-        {array.map((item, index) => (
-          <li key={index} className='subjectli'>{item}</li>
-        ))}
-      </ul>
-      <BottomMenu />
+      {courses.map((course) => (
+        <div key={course.id} className='allcourse'>
+          <h3>{course.name}</h3>
+          <button className='add'>+</button>
+          <p>교수: {course.professor}</p>
+          <p>장소: {course.location}</p>
+          <p>시간: {course.schedule}</p>
+          {/* 추가적인 데이터 표시 */}
+        </div>
+      ))}
     </div>
   );
 };

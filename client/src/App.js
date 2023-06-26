@@ -10,6 +10,13 @@ import Register from "./pages/Register";
 import Timetable from "./pages/TimeTable";
 import Test from "./pages/test";
 import List from "./pages/List";
+import Recommend from "./pages/Recommend";
+import Selectoptionpage4 from "./pages/option/selectoptionpage4";
+import Selectoptionpage5 from "./pages/option/selectoptionpage5";
+import Selectoptionpage6 from "./pages/option/selectoptionpage6";
+import Selectoptionpage7 from "./pages/option/selectoptionpage7";
+import Selectoptionpage8 from "./pages/option/selectoptionpage8";
+
 
 function App() {
   return (
@@ -25,6 +32,12 @@ function App() {
         <Route path="/Time" element={<Timetable />} />
         <Route path="/Test" element={<Test />} />
         <Route path="/List" element={<List />} />
+        <Route path="/Recommend" element={<Recommend />} />
+        <Route path="/Option1" element={<Selectoptionpage4 />} />
+        <Route path="/Option2" element={<Selectoptionpage5 />} />
+        <Route path="/Option3" element={<Selectoptionpage6 />} />
+        <Route path="/Option4" element={<Selectoptionpage7 />} />
+        <Route path="/Option5" element={<Selectoptionpage8 />} />
       </Routes>
     </BrowserRouter>
   );

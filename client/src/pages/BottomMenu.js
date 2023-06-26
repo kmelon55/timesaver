@@ -5,8 +5,8 @@ function BottomMenu(){
     return(
         <div className='bottom_menu'>
             <div>
-                <Link to={"/List"}>
-                  강의조회
+                <Link to={"/Table"}>
+                  강의추천
                 </Link>
             </div>
             <div>
