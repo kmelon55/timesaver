@@ -5,6 +5,7 @@ import traceback
 import ast
 from models import db, Course, User
 from flask import session, Blueprint, jsonify
+import random
 
 
 timetable_bp = Blueprint('timetable', __name__)
@@ -40,10 +41,12 @@ def recommend_timetable():
 	# schedule = user_data["schedule"]
 
 	# course filtering
-	filtered_courses = db.session.query(Course).filter(Course.target_grade.in_(user_data["grade"])).all()
+	filtered_courses = db.session.query(Course).filter(
+    (Course.target_grade == 'ALL') | Course.target_grade.in_(user_data["grade"])).all()
 
 	# schedule filtering
 	available_courses = []
+
 	for course in filtered_courses:
 		course_schedule = [course.schedule[i:i+2] for i in range(0, len(course.schedule), 2)]
 		if not any(time in course_schedule for time in user_data["schedule"]):
@@ -56,6 +59,11 @@ def recommend_timetable():
 
 	if not available_courses:
 		return jsonify({'message': 'No available courses'}), 401
+
+	max_courses = 10  # 최대 요소 개수 설정
+
+	if len(available_courses) > max_courses:
+		available_courses = random.sample(available_courses, max_courses)
 
 	print(available_courses)
 
